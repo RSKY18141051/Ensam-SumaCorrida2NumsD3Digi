@@ -1,0 +1,202 @@
+EMU8086 GENERATED LISTING. MACHINE CODE <- SOURCE.
+ 
+Suma corrida denumeros con varios vectores.com_ -- emu8086 assembler version: 4.08  
+ 
+[ 02/03/2021  --  01:26:32 p. m. ] 
+ 
+===================================================================================================
+[LINE]     LOC: MACHINE CODE                          SOURCE
+===================================================================================================
+ 
+[   1]        :                                       
+[   2]        :                                       ; You may customize this and other start-up templates;
+[   3]        :                                       ; The location of this template is c:\emu8086\inc\0_com_template.txt
+[   4]        :                                       ; Suma corrida de 2 numeros con 3 digitos
+[   5]        :                                       ; Kevin Yael Ruiz Sandoval
+[   6]        :                                       
+[   7]        :                                       include 'emu8086.inc'  ;Libreria para usar scan num y print num
+[   8]        :                                       
+[   9]        :                                       org 100h
+[  10]        :                                       
+[  11]    0100: EB 14                                 jmp inicio_1
+[  12]        :                                       
+[  13]    0102: 00 00 00 00 00 00                     vec1 dw ?,?,?  ;tamano vector 1
+[  14]    0108: 00 00 00 00 00 00                     vec2 dw ?,?,?  ;tamano vector 2
+[  15]    010E: 00 00 00 00 00 00                     vec3 dw ?,?,?  ;tamano vector 3
+[  16]    0114: 00 00                                 num  dw ?      ;"contador"
+[  17]        :                                       
+[  18]    0116:                                       inicio_1:
+[  19]        :                                       
+[  20]    0116: B9 01 00                              mov cx,1    ;Tamano max del "contador"
+[  21]    0119: BE 00 00                              mov si,0
+[  22]    011C: C7 06 14 01 00 00                     mov num,0   ;posicion de "contador"
+[  23]        :                                       
+[  24]    0122:                                       cap_vec1:       ;captura de elementos de vector 1
+[  25]        :                                       
+[  26]    0122: 50 56 EB 04 20 0D 0A 00 BE 26 01 2E   printn " "
+                8A 04 3C 00 74 07 46 B4 0E CD 10 EB 
+                F2 5E 58                            
+[  27]    013D: 51                                    push cx
+[  28]    013E: 50 56 EB 0B 20 76 31 20 65 6C 65 6D   print  ' v1 elem ['
+                20 5B 00 BE 42 01 2E 8A 04 3C 00 74 
+                07 46 B4 0E CD 10 EB F2 5E 58       
+[  29]    0160: A1 14 01                              mov ax,num
+[  30]    0163: E8 F2 02                              call print_num      ;imprime posicion de num
+[  31]    0166: 50 56 EB 07 5D 20 2D 2D 3E 20 00 BE   print '] --> '
+                6A 01 2E 8A 04 3C 00 74 07 46 B4 0E 
+                CD 10 EB F2 5E 58                   
+[  32]    0184: E8 0C 02                              call scan_num       ;checa la posicion de "contador"
+[  33]    0187: 89 8C 02 01                           mov vec1[si],cx
+[  34]    018B: FF 06 14 01                           inc num             ;incrementamos tamano
+[  35]    018F: 83 C6 02                              add si,2
+[  36]    0192: 59                                    pop cx              ;regresa el valor a cx despues del push
+[  37]    0193: E2 8D                                 loop cap_vec1
+[  38]        :                                       
+[  39]        :                                       
+[  40]    0195:                                       inicio_2:
+[  41]        :                                       
+[  42]    0195: B9 01 00                              mov cx,1    ;Tamano de "contador"
+[  43]    0198: BE 00 00                              mov si,0
+[  44]    019B: C7 06 14 01 00 00                     mov num,0   ;posicion de "contador"
+[  45]    01A1: 50 56 EB 04 20 0D 0A 00 BE A5 01 2E   printn " "
+                8A 04 3C 00 74 07 46 B4 0E CD 10 EB 
+                F2 5E 58                            
+[  46]        :                                       
+[  47]    01BC:                                       cap_vec2:       ;captura de elementos de vector 2
+[  48]        :                                       
+[  49]    01BC: 50 56 EB 04 20 0D 0A 00 BE C0 01 2E   printn " "
+                8A 04 3C 00 74 07 46 B4 0E CD 10 EB 
+                F2 5E 58                            
+[  50]    01D7: 51                                    push cx
+[  51]    01D8: 50 56 EB 0B 20 76 32 20 65 6C 65 6D   print  ' v2 elem ['
+                20 5B 00 BE DC 01 2E 8A 04 3C 00 74 
+                07 46 B4 0E CD 10 EB F2 5E 58       
+[  52]    01FA: A1 14 01                              mov ax,num
+[  53]    01FD: E8 58 02                              call print_num      ;imprime posicion de num
+[  54]    0200: 50 56 EB 07 5D 20 2D 2D 3E 20 00 BE   print '] --> '
+                04 02 2E 8A 04 3C 00 74 07 46 B4 0E 
+                CD 10 EB F2 5E 58                   
+[  55]    021E: E8 72 01                              call scan_num       ;checa la posicion de "contador"
+[  56]    0221: 89 8C 08 01                           mov vec2[si],cx
+[  57]    0225: FF 06 14 01                           inc num             ;incrementamos tamano
+[  58]    0229: 83 C6 02                              add si,2
+[  59]    022C: 59                                    pop cx              ;regresa el valor a cx despues del push
+[  60]    022D: E2 8D                                 loop cap_vec2
+[  61]        :                                       
+[  62]    022F:                                       inicio_3:
+[  63]        :                                       
+[  64]    022F: B9 01 00                              mov cx,1
+[  65]    0232: BE 00 00                              mov si,0
+[  66]        :                                       
+[  67]    0235:                                       cap_vec3:      ;captura de la suma en vector 3
+[  68]        :                                       
+[  69]    0235: 51                                    push cx
+[  70]    0236: 33 C0                                 xor  ax,ax          ;regresa a su valor original
+[  71]    0238: 33 DB                                 xor  bx,bx          ;regresa a su valor original
+[  72]    023A: 8B 84 02 01                           mov  ax,vec1[si]    ;asignamos el primer valor del vector1 a ax
+[  73]    023E: 8B 9C 08 01                           mov  bx,vec2[si]    ;asignamos el primer valor del vector2 a bx
+[  74]    0242: 03 C3                                 add  ax,bx          ;suma ax=ax+bx
+[  75]    0244: 89 84 0E 01                           mov  vec3[si],ax    ;metemos ax en una posicion del vector3
+[  76]    0248: 83 C6 02                              add  si,2
+[  77]    024B: 59                                    pop  cx             ;regresa a su valor cx despues de push
+[  78]    024C: E2 E7                                 loop cap_vec3
+[  79]        :                                       
+[  80]    024E:                                       inicio_4:
+[  81]        :                                       
+[  82]    024E: 50 56 EB 04 20 0D 0A 00 BE 52 02 2E   printn " "
+                8A 04 3C 00 74 07 46 B4 0E CD 10 EB 
+                F2 5E 58                            
+[  83]    0269: 50 56 EB 15 20 52 65 73 75 6C 74 61   printn ' Resultado de suma'
+                64 6F 20 64 65 20 73 75 6D 61 0D 0A 
+                00 BE 6D 02 2E 8A 04 3C 00 74 07 46 
+                B4 0E CD 10 EB F2 5E 58             
+[  84]    0295: 50 56 EB 04 20 0D 0A 00 BE 99 02 2E   printn ' '
+                8A 04 3C 00 74 07 46 B4 0E CD 10 EB 
+                F2 5E 58                            
+[  85]    02B0: B9 01 00                              mov cx,1
+[  86]    02B3: BE 00 00                              mov si,0
+[  87]    02B6: C7 06 14 01 00 00                     mov num,0
+[  88]        :                                       
+[  89]    02BC:                                       cap_vec4:
+[  90]    02BC: 50 56 EB 04 20 0D 0A 00 BE C0 02 2E   printn " "
+                8A 04 3C 00 74 07 46 B4 0E CD 10 EB 
+                F2 5E 58                            
+[  91]    02D7: 51                                    push cx
+[  92]    02D8: 50 56 EB 08 20 53 75 6D 61 20 5B 00   print ' Suma ['
+                BE DC 02 2E 8A 04 3C 00 74 07 46 B4 
+                0E CD 10 EB F2 5E 58                
+[  93]    02F7: A1 14 01                              mov ax,num         ;pasamos el "contador" a ax
+[  94]    02FA: E8 5B 01                              call print_num     ;imprime la posicion de "contador"
+[  95]    02FD: 50 56 EB 07 5D 20 2D 2D 3E 20 00 BE   print '] --> '
+                01 03 2E 8A 04 3C 00 74 07 46 B4 0E 
+                CD 10 EB F2 5E 58                   
+[  96]    031B: 8B 84 0E 01                           mov  ax,vec3[si]   ;pasamos el valor de una posicion de vector3 a ax
+[  97]    031F: E8 36 01                              call print_num
+[  98]    0322: FF 06 14 01                           inc num            ;incrementa "contador"
+[  99]    0326: 83 C6 02                              add  si,2
+[ 100]    0329: 59                                    pop  cx            ;regresa a su valor cx despues de push
+[ 101]    032A: E2 90                                 loop cap_vec4
+[ 102]        :                                       
+[ 103]    032C:                                       final:                 ;ciclo para fin automatico
+[ 104]    032C: 50 56 EB 04 20 0D 0A 00 BE 30 03 2E   printn " "
+                8A 04 3C 00 74 07 46 B4 0E CD 10 EB 
+                F2 5E 58                            
+[ 105]    0347: 50 56 EB 10 20 54 65 72 6D 69 6E 61   printn " Terminado..."
+                64 6F 2E 2E 2E 0D 0A 00 BE 4B 03 2E 
+                8A 04 3C 00 74 07 46 B4 0E CD 10 EB 
+                F2 5E 58                            
+[ 106]    036E: 50 56 EB 04 20 0D 0A 00 BE 72 03 2E   printn ' '
+                8A 04 3C 00 74 07 46 B4 0E CD 10 EB 
+                F2 5E 58                            
+[ 107]    0389: B9 FE 00                              mov cx,0feh
+[ 108]    038C:                                       salida:
+[ 109]    038C: 90                                    nop
+[ 110]    038D: E2 FD                                 loop salida
+[ 111]    038F: C3                                    ret
+[ 112]    0390: E9 C3 00 52 50 56 B9 00 00 2E C6 06   define_scan_num      ;comandos de la libreria
+                53 04 00 B4 00 CD 16 B4 0E CD 10 3C 
+                2D 74 69 3C 0D 75 03 E9 93 00 3C 08 
+                75 1E BA 00 00 8B C1 2E F7 36 54 04 
+                8B C8 50 B0 20 B4 0E CD 10 58 50 B0 
+                08 B4 0E CD 10 58 EB CB 3C 30 73 02 
+                EB 04 3C 39 76 1A 50 B0 08 B4 0E CD 
+                10 58 50 B0 20 B4 0E CD 10 58 50 B0 
+                08 B4 0E CD 10 58 EB A7 50 8B C1 2E 
+                F7 26 54 04 8B C8 58 83 FA 00 75 19 
+                2C 30 B4 00 8B D1 03 C8 72 0A EB 8B 
+                2E C6 06 53 04 01 EB 83 8B CA BA 00 
+                00 8B C1 2E F7 36 54 04 8B C8 50 B0 
+                08 B4 0E CD 10 58 50 B0 20 B4 0E CD 
+                10 58 50 B0 08 B4 0E CD 10 58 E9 5A 
+                FF 2E 80 3E 53 04 00 74 02 F7 D9 5E 
+                58 5A C3 00 0A 00                   
+[ 113]    0456: EB 26 52 50 3D 00 00 75 0A 50 B0 30   define_print_num
+                B4 0E CD 10 58 EB 12 3D 00 00 79 0A 
+                F7 D8 50 B0 2D B4 0E CD 10 58 E8 05 
+                00 58 5A C3                         
+[ 114]    047E: EB 50 50 53 51 52 B9 01 00 BB 10 27   define_print_num_uns
+                3D 00 00 74 32 83 FB 00 74 35 83 F9 
+                00 74 04 3B C3 72 14 B9 00 00 BA 00 
+                00 F7 F3 04 30 50 8A C0 B4 0E CD 10 
+                58 8B C2 50 BA 00 00 8B C3 2E F7 36 
+                CE 04 8B D8 58 EB CE 50 B0 30 B4 0E 
+                CD 10 58 5A 59 5B 58 C3 0A 00       
+[ 115]        :                                       end
+[ 116]        :                                       
+[ 117]        :                                       ret
+[ 118]        :                                       
+[ 119]        :                                       ret
+[ 120]        :                                       
+[ 121]        :                                       
+[ 122]        :                                       
+[ 123]        :                                       
+[ 124]        :                                       
+[ 125]        :                                       
+ 
+===================================================================================================
+ 
+
+
+
+
+===================================================================================================
